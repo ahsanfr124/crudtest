@@ -32,6 +32,9 @@ class CategoryController extends Controller
     {
        
             $category = Category::findOrFail($id);
+            Category::where('parent_id', $category->id)->update(['parent_id' => null]);
+
+            // Delete the category
             $category->delete();
             return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
